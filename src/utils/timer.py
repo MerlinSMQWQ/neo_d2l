@@ -21,7 +21,7 @@ class Timer:
             结束计时, 并将本次运行所花费的时间添加到times中, 并将本次运行所花费的时间存放到times中
 
         Returns:
-            float: _description_. 本次运行所花费的时间
+            - float: _description_. 本次运行所花费的时间
         """
         self.times.append(time.time() - self.tik)
         return self.times[-1]
@@ -31,7 +31,7 @@ class Timer:
             返回所有运行所花费的时间
 
         Returns:
-            float: _description_. 所有运行花费的时间
+            - float: _description_. 所有运行花费的时间
         """
         return sum(self.times)
     
@@ -40,7 +40,7 @@ class Timer:
             返回平均每次运行所花费的时间
 
         Returns:
-            float: _description_. 平均每次运行所花费的时间
+            - float: _description_. 平均每次运行所花费的时间
         """
         return self.sum() / len(self.times)
     
@@ -49,6 +49,6 @@ class Timer:
             返回累计运行所花费的时间
 
         Returns:
-            list[float]: _description_. 累计运行所花费的时间, 例如times 为 [1.0, 2.0, 3.0, 4.0], cumsum() 为 [1.0, 3.0, 6.0, 10.0], 可以反映时间的的趋势
+            - list[float]: _description_. 累计运行所花费的时间, 例如times 为 [1.0, 2.0, 3.0, 4.0], cumsum() 为 [1.0, 3.0, 6.0, 10.0], 可以反映时间的的趋势
         """
         return np.array(self.times).cumsum().tolist()

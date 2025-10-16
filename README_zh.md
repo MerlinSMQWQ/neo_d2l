@@ -9,4 +9,7 @@
 
 # TODO
 - [X] use_svg_display()
-- [ ] set_figsize()
+- [X] set_figsize()
+- [X] set_axes()
+- [X] plot()
+- [X] Timer

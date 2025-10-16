@@ -6,3 +6,7 @@
 
 【注意】
 - uv并不适合直接管理pytroch以及torch vision，想要使用需要pip安装或者uv pip。
+
+# TODO
+- [X] use_svg_display()
+- [ ] set_figsize()

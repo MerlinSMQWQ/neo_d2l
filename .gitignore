@@ -12,3 +12,4 @@ wheels/
 # IDE files
 .idea
 .vscode
+main.py

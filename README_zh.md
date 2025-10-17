@@ -15,3 +15,4 @@
 - [X] Timer
 - [X] synthetic_data()
 - [X] linreg()
+- [X] squared_loss()

@@ -3,6 +3,8 @@ import numpy as np
 import torch
 from torch import matmul
 
+reshape = lambda x, *args, **kwargs: x.reshape(*args, **kwargs)
+
 def linreg(X: torch.Tensor, w: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
     """_summary_
         Linear regression, 计算结果  
@@ -16,3 +18,6 @@ def linreg(X: torch.Tensor, w: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
         torch.Tensor: _description_ 线性回归结果
     """
     return matmul(X, w) + b
+
+def squared_loss(y_hat: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+    return (y_hat - y.reshape(y_hat.shape)) ** 2 / 2

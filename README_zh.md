@@ -13,3 +13,5 @@
 - [X] set_axes()
 - [X] plot()
 - [X] Timer
+- [X] synthetic_data()
+- [X] linreg()

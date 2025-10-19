@@ -16,14 +16,3 @@ def load_array(data_arrays: Iterable[torch.Tensor], batch_size: int, is_train: b
     """
     dataset = data.TensorDataset(*data_arrays)
     return data.DataLoader(dataset, batch_size, shuffle=is_train)
-
-
-if __name__ == "__main__":
-    from ..utils.quick_gen import synthetic_data
-    true_w = torch.tensor([2.0, -5.4])
-    true_b = 4.2
-    features, labels = synthetic_data(true_w, true_b, 1000)
-    
-    data_iter = load_array((features, labels), 100, is_train=True)
-    
-    print(next(iter(data_iter)))

@@ -6,12 +6,12 @@ def synthetic_data(w: torch.Tensor, b: torch.Tensor | float, num_examples: int) 
         Generate data for linear regression y = Xw + b + noise  
 
     Args:
-        w (torch.Tensor): _description_ A weight vector  
-        b (torch.Tensor | float): _description_ A bias vector  
-        num_examples (int): _description_ The number of examples  
+        - w (torch.Tensor): _description_ A weight vector  
+        - b (torch.Tensor | float): _description_ A bias vector  
+        - num_examples (int): _description_ The number of examples  
 
     Returns:
-        tuple[torch.Tensor, torch.Tensor]: _description_ A tuple of (X, Y)  
+        - tuple[torch.Tensor, torch.Tensor]: _description_ A tuple of (X, Y)  
     """
     X: torch.Tensor = normal(0, 1, (num_examples, len(w)))
     Y: torch.Tensor = matmul(X, w) + b

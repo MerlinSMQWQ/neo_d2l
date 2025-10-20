@@ -16,3 +16,7 @@
 - [X] synthetic_data()
 - [X] linreg()
 - [X] squared_loss()
+- [X] sgd()
+- [X] load_array()
+- [X] get_fashion_mnist_labels()
+- [X] show_images() -> save_images()

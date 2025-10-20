@@ -68,5 +68,6 @@ def save_images(imgs: torch.Tensor|ndarray, num_rows: int, num_cols: int, titles
             ax.set_title(titles[i])
         
     plt.savefig(fname=png_path)
+    plt.close()
     return axes
 

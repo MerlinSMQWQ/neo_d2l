@@ -36,4 +36,5 @@ def test_plot_2():
     plt.gca().set_ylabel('Estimated probability')
     plt.legend()
     plt.show()
+    plt.close()
     

@@ -50,7 +50,8 @@ def set_axes(axes: ax.Axes, xlabel: str, ylabel: str, xlim: tuple[float, float]|
 def plot(xlabel: str, ylabel: str, X, Y=None, legend: list[str]|None=None, 
          xlim: tuple[float, float]|None=None,ylim: tuple[float, float]|None=None, 
          xscale: str='linear', yscale: str='linear',fmts: tuple[str, str, str, str] =('-', 'm--', 'g-.', 'r:'),
-         figsize: tuple[float, float]=(3.5, 2.5), axes: ax.Axes|None=None):
+         figsize: tuple[float, float]=(3.5, 2.5), axes: ax.Axes|None=None,
+         png_path: str=r"./lab_img/output.png"):
     """_summary_:
         画图函数，绘制对应的图像
         
@@ -66,7 +67,8 @@ def plot(xlabel: str, ylabel: str, X, Y=None, legend: list[str]|None=None,
         - yscale (str, optional): _description_. Defaults to 'linear'. y轴刻度.  
         - fmts (tuple[str, str, str, str], optional): _description_. Defaults to ('-', 'm--', 'g-.', 'r:'). 绘制的格式.  
         - figsize (tuple[float, float], optional): _description_. Defaults to (3.5, 2.5) 图像大小.
-        axes (ax.Axes | None, optional): _description_. Defaults to None. 坐标轴.
+        - axes (ax.Axes | None, optional): _description_. Defaults to None. 坐标轴.
+        - png_path (str, optional): _description_. Defaults to "./lab_img/output.png". 保存的png图片路径.
     """
     if legend is None:
         legend = []
@@ -95,7 +97,8 @@ def plot(xlabel: str, ylabel: str, X, Y=None, legend: list[str]|None=None,
         else:
             axes.plot(y, fmt)
     set_axes(axes, xlabel, ylabel, xlim, ylim, xscale, yscale, legend)
-    plt.show()
+    plt.savefig(fname=png_path)
+    plt.close()
     
 if __name__ == "__main__":
     x = np.arange(0, 3, 0.1)

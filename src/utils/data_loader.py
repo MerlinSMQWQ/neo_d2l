@@ -1,6 +1,11 @@
+import torchvision
+from numpy import ndarray
 from torch.utils import data
 import torch
 from typing import Iterable
+from torchvision import transforms
+from matplotlib import pyplot as plt
+from matplotlib import axes as Axes
 
 def load_array(data_arrays: Iterable[torch.Tensor], batch_size: int, is_train: bool=True) -> data.DataLoader:
     """_summary_:
@@ -17,13 +22,52 @@ def load_array(data_arrays: Iterable[torch.Tensor], batch_size: int, is_train: b
     dataset = data.TensorDataset(*data_arrays)
     return data.DataLoader(dataset, batch_size, shuffle=is_train)
 
+def get_fashion_mnist_labels(labels: Iterable[int]) -> list[str]:
+    """_summary_:
+        
 
-if __name__ == "__main__":
-    from ..utils.quick_gen import synthetic_data
-    true_w = torch.tensor([2.0, -5.4])
-    true_b = 4.2
-    features, labels = synthetic_data(true_w, true_b, 1000)
-    
-    data_iter = load_array((features, labels), 100, is_train=True)
-    
-    print(next(iter(data_iter)))
+    Args:
+        labels (Iterable): _description_
+
+    Returns:
+        list[str]: _description_
+    """
+    text_labels: list[str] = ['t-shirt', 'trouser', 'pullover', 'dress', 'coat',
+                   'sandal', 'shirt', 'sneaker', 'bag', 'ankle boot']
+
+    return [text_labels[int(i)] for i in labels]
+
+def save_images(imgs: torch.Tensor|ndarray, num_rows: int, num_cols: int, titles: list[str]|None = None, scale: float = 1.5, png_path: str = r'./lab_img/output.png') -> ndarray:
+    """_summary_:
+        用于保存图片视图，方便确认数据集是否正确获取
+
+    Args:
+        - imgs (torch.Tensor | ndarray): _description_ 图像数据
+        - num_rows (int): _description_ 展示图片的行数
+        - num_cols (int): _description_ 展示图片的列数
+        - titles (list[str] | None, optional): _description_. Defaults to None. 图片标签序列
+        - scale (float, optional): _description_. Defaults to 1.5. 图片缩放比例
+        - png_path (str, optional): _description_. Defaults to r'./lab_img/output.png'. 视图存放路径
+        
+    Returns:
+        - ndarray: _description_ 返回展平后的坐标轴数组
+    """
+    figsize = (num_cols * scale, num_rows * scale)
+    _, axes = plt.subplots(ncols=num_cols, nrows=num_rows, figsize=figsize)
+    assert isinstance(axes, ndarray)
+    axes = axes.flatten()
+    for i, (ax, img) in enumerate(zip(axes, imgs)):
+        if torch.is_tensor(img):
+            ax.imshow(img.numpy())
+        else:
+            ax.imshow(img)
+            
+        ax.axes.get_xaxis().set_visible(False)
+        ax.axes.get_yaxis().set_visible(False)
+        if titles:
+            ax.set_title(titles[i])
+        
+    plt.savefig(fname=png_path)
+    plt.close()
+    return axes
+

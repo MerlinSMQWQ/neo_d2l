@@ -1,7 +1,10 @@
+import torchvision
+from torchvision import transforms
+from torch.utils import data
 import torch
 from torch import nn
 from ..src.utils.quick_gen import synthetic_data
-from ..src.utils.data_loader import load_array
+from ..src.utils.data_loader import load_array, show_images, get_fashion_mnist_labels
 
 def test_load_array():
     true_w = torch.tensor([2.0, -5.4])
@@ -33,3 +36,13 @@ def test_load_array():
     b = net[0].bias.data
     assert isinstance(b, torch.Tensor)
     print('b的估计误差:', true_b - b)
+    
+    
+def test_fashion_mnist():
+    trans = transforms.ToTensor()
+    mnist_train = torchvision.datasets.FashionMNIST(root=r"./data", train=True, transform=trans, download=True)
+    mnist_test = torchvision.datasets.FashionMNIST(root=r"./data", train=False, transform=trans, download=True)
+    print(len(mnist_train), len(mnist_test))     
+    X, y = next(iter(data.DataLoader(mnist_train, batch_size=18)))
+    show_images(X.reshape(18, 28, 28), 2, 9, titles=get_fashion_mnist_labels(y), png_path= r'./lab_img/output.png');
+    

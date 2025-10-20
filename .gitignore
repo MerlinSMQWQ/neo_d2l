@@ -12,4 +12,7 @@ wheels/
 # IDE files
 .idea
 .vscode
-main.py
+
+./main.py
+data/
+lab_img/*

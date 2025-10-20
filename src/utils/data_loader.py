@@ -1,6 +1,11 @@
+import torchvision
+from numpy import ndarray
 from torch.utils import data
 import torch
 from typing import Iterable
+from torchvision import transforms
+from matplotlib import pyplot as plt
+from matplotlib import axes as Axes
 
 def load_array(data_arrays: Iterable[torch.Tensor], batch_size: int, is_train: bool=True) -> data.DataLoader:
     """_summary_:
@@ -16,3 +21,38 @@ def load_array(data_arrays: Iterable[torch.Tensor], batch_size: int, is_train: b
     """
     dataset = data.TensorDataset(*data_arrays)
     return data.DataLoader(dataset, batch_size, shuffle=is_train)
+
+def get_fashion_mnist_labels(labels: Iterable[int]) -> list[str]:
+    """_summary_:
+        
+
+    Args:
+        labels (Iterable): _description_
+
+    Returns:
+        list[str]: _description_
+    """
+    text_labels: list[str] = ['t-shirt', 'trouser', 'pullover', 'dress', 'coat',
+                   'sandal', 'shirt', 'sneaker', 'bag', 'ankle boot']
+
+    return [text_labels[int(i)] for i in labels]
+
+def show_images(imgs: torch.Tensor|ndarray, num_rows: int, num_cols: int, titles: list[str]|None = None, scale: float = 1.5, png_path: str = r'./lab_img/output.png'):
+    figsize = (num_cols * scale, num_rows * scale)
+    _, axes = plt.subplots(ncols=num_cols, nrows=num_rows, figsize=figsize)
+    assert isinstance(axes, ndarray)
+    axes = axes.flatten()
+    for i, (ax, img) in enumerate(zip(axes, imgs)):
+        if torch.is_tensor(img):
+            ax.imshow(img.numpy())
+        else:
+            ax.imshow(img)
+            
+        ax.axes.get_xaxis().set_visible(False)
+        ax.axes.get_yaxis().set_visible(False)
+        if titles:
+            ax.set_title(titles[i])
+        
+    plt.savefig(fname=png_path)
+    return axes
+

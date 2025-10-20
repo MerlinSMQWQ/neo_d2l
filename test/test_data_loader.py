@@ -44,5 +44,5 @@ def test_fashion_mnist():
     mnist_test = torchvision.datasets.FashionMNIST(root=r"./data", train=False, transform=trans, download=True)
     print(len(mnist_train), len(mnist_test))     
     X, y = next(iter(data.DataLoader(mnist_train, batch_size=18)))
-    save_images(X.reshape(18, 28, 28), 2, 9, titles=get_fashion_mnist_labels(y), png_path= r'./lab_img/output.png');
+    save_images(X.reshape(18, 28, 28), 2, 9, titles=get_fashion_mnist_labels(y), png_path= r'./lab_img/output2.png');
     

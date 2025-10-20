@@ -4,7 +4,7 @@ from torch.utils import data
 import torch
 from torch import nn
 from ..src.utils.quick_gen import synthetic_data
-from ..src.utils.data_loader import load_array, save_images, get_fashion_mnist_labels
+from ..src.utils.data_loader import load_array, save_images, get_fashion_mnist_labels, get_dataloader_workers
 
 def test_load_array():
     true_w = torch.tensor([2.0, -5.4])
@@ -46,3 +46,7 @@ def test_fashion_mnist():
     X, y = next(iter(data.DataLoader(mnist_train, batch_size=18)))
     save_images(X.reshape(18, 28, 28), 2, 9, titles=get_fashion_mnist_labels(y), png_path= r'./lab_img/output2.png');
     
+    
+def test_get_dataloader_workers():
+    workers = get_dataloader_workers()
+    print(workers)

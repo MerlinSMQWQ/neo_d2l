@@ -6,6 +6,7 @@ from typing import Iterable
 from torchvision import transforms
 from matplotlib import pyplot as plt
 from matplotlib import axes as Axes
+import sys
 
 def load_array(data_arrays: Iterable[torch.Tensor], batch_size: int, is_train: bool=True) -> data.DataLoader:
     """_summary_:
@@ -70,4 +71,11 @@ def save_images(imgs: torch.Tensor|ndarray, num_rows: int, num_cols: int, titles
     plt.savefig(fname=png_path)
     plt.close()
     return axes
+
+
+def get_dataloader_workers(num_workers: int = 4):  #@save
+    """_summary_
+        在非Windows的平台上, 使用4个进程来读取数据
+    """
+    return 0 if sys.platform.startswith('win') else num_workers
 

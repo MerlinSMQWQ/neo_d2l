@@ -8,10 +8,10 @@
 - uv并不适合直接管理pytroch以及torch vision，想要使用需要pip安装或者uv pip。
 
 # TODO
-- [X] use_svg_display()
+- [X] use_svg_display() -> use_TKAgg_display()
 - [X] set_figsize()
 - [X] set_axes()
-- [X] plot()
+- [X] plot() + parm(png_path)
 - [X] Timer
 - [X] synthetic_data()
 - [X] linreg()
@@ -19,4 +19,4 @@
 - [X] sgd()
 - [X] load_array()
 - [X] get_fashion_mnist_labels()
-- [X] show_images() -> save_images()
+- [X] show_images() -> save_images() + parm()

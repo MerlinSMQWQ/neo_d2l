@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.axes as ax
 from matplotlib.scale import ScaleBase
 import numpy as np
+import torch
+from numpy import ndarray
 
 # 
 def use_TKAgg_display() -> None:
@@ -51,7 +53,7 @@ def plot(xlabel: str, ylabel: str, X, Y=None, legend: list[str]|None=None,
          xlim: tuple[float, float]|None=None,ylim: tuple[float, float]|None=None, 
          xscale: str='linear', yscale: str='linear',fmts: tuple[str, str, str, str] =('-', 'm--', 'g-.', 'r:'),
          figsize: tuple[float, float]=(3.5, 2.5), axes: ax.Axes|None=None,
-         png_path: str=r"./lab_img/output.png"):
+         output_png_path: str=r"./lab_img/output.png"):
     """_summary_:
         画图函数，绘制对应的图像
         
@@ -68,7 +70,7 @@ def plot(xlabel: str, ylabel: str, X, Y=None, legend: list[str]|None=None,
         - fmts (tuple[str, str, str, str], optional): _description_. Defaults to ('-', 'm--', 'g-.', 'r:'). 绘制的格式.  
         - figsize (tuple[float, float], optional): _description_. Defaults to (3.5, 2.5) 图像大小.
         - axes (ax.Axes | None, optional): _description_. Defaults to None. 坐标轴.
-        - png_path (str, optional): _description_. Defaults to "./lab_img/output.png". 保存的png图片路径.
+        - output_png_path (str, optional): _description_. Defaults to "./lab_img/output.png". 保存的png图片路径.
     """
     if legend is None:
         legend = []
@@ -97,8 +99,43 @@ def plot(xlabel: str, ylabel: str, X, Y=None, legend: list[str]|None=None,
         else:
             axes.plot(y, fmt)
     set_axes(axes, xlabel, ylabel, xlim, ylim, xscale, yscale, legend)
-    plt.savefig(fname=png_path)
+    plt.savefig(fname=output_png_path)
     plt.close()
+    
+
+def save_images(imgs: torch.Tensor|ndarray, num_rows: int, num_cols: int, titles: list[str]|None = None, scale: float = 1.5, output_png_path: str = r'./lab_img/output.png') -> ndarray:
+    """_summary_:
+        用于保存图片视图，方便确认数据集是否正确获取
+
+    Args:
+        - imgs (torch.Tensor | ndarray): _description_ 图像数据
+        - num_rows (int): _description_ 展示图片的行数
+        - num_cols (int): _description_ 展示图片的列数
+        - titles (list[str] | None, optional): _description_. Defaults to None. 图片标签序列
+        - scale (float, optional): _description_. Defaults to 1.5. 图片缩放比例
+        - output_png_path (str, optional): _description_. Defaults to r'./lab_img/output.png'. 视图存放路径
+        
+    Returns:
+        - ndarray: _description_ 返回展平后的坐标轴数组
+    """
+    figsize = (num_cols * scale, num_rows * scale)
+    _, axes = plt.subplots(ncols=num_cols, nrows=num_rows, figsize=figsize)
+    assert isinstance(axes, ndarray)
+    axes = axes.flatten()
+    for i, (ax, img) in enumerate(zip(axes, imgs)):
+        if torch.is_tensor(img):
+            ax.imshow(img.numpy())
+        else:
+            ax.imshow(img)
+            
+        ax.axes.get_xaxis().set_visible(False)
+        ax.axes.get_yaxis().set_visible(False)
+        if titles:
+            ax.set_title(titles[i])
+        
+    plt.savefig(fname=output_png_path)
+    plt.close()
+    return axes
     
 if __name__ == "__main__":
     x = np.arange(0, 3, 0.1)

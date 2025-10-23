@@ -18,7 +18,7 @@ def test_set_figsize():
 # 尝试画图
 def test_plot():
     x = np.arange(0, 3, 0.1)
-    display.plot(X = x, Y =[3 * x ** 2 - 4 * x, 2 * x - 3], xlabel='x', ylabel='f(x)', legend=['f(x)', 'Tangent line (x=1)'], png_path=r"./lab_img/output1.png")
+    display.plot(X = x, Y =[3 * x ** 2 - 4 * x, 2 * x - 3], xlabel='x', ylabel='f(x)', legend=['f(x)', 'Tangent line (x=1)'], output_png_path=r"./lab_img/output1.png")
     
 def test_plot_2():
     fair_probs = torch.ones([6]) / 6
